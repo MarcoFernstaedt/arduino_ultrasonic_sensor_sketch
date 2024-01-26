@@ -1,6 +1,9 @@
 // Define the Trig and Echo pin:
-#define TRIG_PIN 13
-#define ECHO_PIN 12
+#define TRIG_PIN 12
+#define ECHO_PIN 11
+
+// Define the LED pin:
+#define LED_PIN 13
 
 // Variables for the duration and the distance:
 long duration;
@@ -13,6 +16,8 @@ void setup()
     // Define the pins as Output and Input
     pinMode(TRIG_PIN, OUTPUT);
     pinMode(ECHO_PIN, INPUT);
+    // Set the LED pin as an output:
+    pinMode(LED_PIN, OUTPUT);
 }
 
 void loop()
@@ -31,12 +36,21 @@ void loop()
 
     // Calculating the distance in inches
     distance = duration * 0.0135 / 2;
-    // Calculating the distance in centameters
+    // Calculating the distance in centimeters
     // distance = duration * 0.034 / 2;
 
     // Print the distance on the Serial Monitor
     Serial.print("Distance: ");
     Serial.println(distance);
+
+    // Check if the distance is less than or equal to 61 cm
+    if (distance <= 61) {
+        // Turn the LED ON
+        digitalWrite(LED_PIN, HIGH);
+    } else {
+        // Turn the LED OFF
+        digitalWrite(LED_PIN, LOW);
+    }
 
     // Delay 50ms before the next measurement:
     delay(50);
